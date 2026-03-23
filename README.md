@@ -14,6 +14,9 @@
 ```bash
 pipenv install
 cp .env.example .env
+# Add keys to .env
+# HUGGINGFACE_API_KEY="<your-token>"
+# LLM_MODEL="meta-llama/Llama-2-7b-chat-hf"
 ```
 
 ### Run (Docker Compose)
@@ -29,6 +32,11 @@ docker compose up -d --build
 
 - Verify endpoint: `GET /webhooks/whatsapp?hub.mode=subscribe&hub.verify_token=...&hub.challenge=...`
 - Inbound endpoint: `POST /webhooks/whatsapp` with `X-Hub-Signature-256: sha256=<hex>`
+
+### Telegram webhook
+
+- Set webhook with Bot API: `https://api.telegram.org/bot<token>/setWebhook?url=https://<your-host>/webhooks/telegram&secret_token=<your-secret>`
+- Inbound endpoint: `POST /webhooks/telegram` with optional `X-Telegram-Bot-Api-Secret-Token` for verification
 
 ## Notes
 

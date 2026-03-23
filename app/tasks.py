@@ -69,6 +69,11 @@ def _route_event(event_id: uuid.UUID) -> dict:
 
             return dispatch_whatsapp_message(event)
 
+        if event.source == "telegram":
+            from app.agents.dispatcher import dispatch_telegram_message
+
+            return dispatch_telegram_message(event)
+
     return {"kind": "noop", "message": "no handler"}
 
 

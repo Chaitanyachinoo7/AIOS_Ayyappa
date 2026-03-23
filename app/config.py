@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     sentry_dsn: str | None = None
 
     anthropic_api_key: str | None = None
+    huggingface_api_key: str | None = None
+    llm_model: str = "meta-llama/Llama-2-7b-chat-hf"
 
     whatsapp_verify_token: str | None = None
     whatsapp_app_secret: str | None = None
@@ -21,6 +23,9 @@ class Settings(BaseSettings):
     slack_bot_token: str | None = None
     slack_signing_secret: str | None = None
     slack_deploy_webhook: str | None = None
+
+    telegram_bot_token: str | None = None
+    telegram_webhook_secret: str | None = None
 
     context_hub_path: str = "/app/context-hub"
     context_hub_repo: str | None = None

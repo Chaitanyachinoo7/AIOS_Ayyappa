@@ -17,7 +17,7 @@ def _load_soul() -> str:
 
 
 agent = Agent(
-    "anthropic:claude-sonnet-4-6",
+    f"huggingface:{settings.llm_model}",
     instructions=_load_soul() + "\nYou are an assistant inside an AI operating system. Be concise.",
 )
 
@@ -36,8 +36,8 @@ def save_idea(title: str, body: str) -> str:
 
 
 def run_lightweight_agent(event: Event, message_text: str | None) -> dict:
-    if not settings.anthropic_api_key:
-        return {"kind": "agent", "error": "ANTHROPIC_API_KEY not configured"}
+    if not settings.huggingface_api_key:
+        return {"kind": "agent", "error": "HUGGINGFACE_API_KEY not configured"}
 
     hub_repo = ContextHubRepo()
     hub_repo.pull_latest()
@@ -51,5 +51,5 @@ def run_lightweight_agent(event: Event, message_text: str | None) -> dict:
     )
     result = agent.run_sync(prompt)
     hub_repo.commit_and_push("Agent update")
-    return {"kind": "agent", "model": "claude-sonnet-4-6", "reply": result.output}
+    return {"kind": "agent", "model": settings.llm_model, "reply": result.output}
 
